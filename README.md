@@ -9,36 +9,62 @@ I needed a way to filter json data being returned, and wanted a nice way of doin
     var query = require('../node-query/node-query');
 
     var q = new query().data([
-      {var1: 'data', grep: 'upgrep', var2: 1, blam: 'wan'},
-      {var1: 'date', grep: 'upgrep', var2: 2, blam: 'rap'},
-      {var1: 'date', grep: 'upgrep', var2: 3, blam: 'rap'},
-      {var1: 'datr', grep: 'upgrep', var2: 4, blam: 'wan'},
+	    {var1: 'data', grep: 'upgrep', var2: 1, blam: 'wan', quid: 'ro'},
+	    {var1: 'date', grep: 'upgrep', var2: 2, blam: 'rap', quid: 'ro'},
+	    {var1: 'date', grep: 'upgrep', var2: 3, blam: 'rap', quid: 'ro'},
+	    {var1: 'datr', grep: 'upgrep', var2: 4, blam: 'wan', quid: 'ro'},
+    ]);
+
+    q.select([
+	    {'var1': 'var3'}, 'grep', 'var2', 'blam', {'quid': 'pro'}
     ]);
 
     q.where({
-      conditions: {
-        'var1': /dat(a|e)/ig, // supports regexp or standard comparison
+	    conditions: {
+		    'var3': /dat(a|e)/ig, // supports regexp or standard comparison
         and: [
           {'grep': 'upgrep'}, // this could be in seperate objects or in one big one
           {'var2': {'>': 1}} // supports all the usual operators, < > >= <= !=
         ],
-        or: [
-          {'blam': 'rap'}, // these need to be in seperate objects in the array
-          {'blam': 'wan'}
-        ],
-      }
+		    or: [
+			    {'blam': 'rap'},
+			    {'blam': 'wan'}
+		    ],
+	    }
     });
 
-    // call q.data() to read the data, call q.data(object) to
-    // overwrite the query's current object.
-
     console.log(q.data());
+    
+    // outputs:
+    
+    //  [ { var3: 'date'
+    //    , grep: 'upgrep'
+    //    , var2: 2
+    //    , blam: 'rap'
+    //    , pro: 'ro'
+    //    }
+    //  , { var3: 'date'
+    //    , grep: 'upgrep'
+    //    , var2: 3
+    //    , blam: 'rap'
+    //    , pro: 'ro'
+    //    }
+    //  ]
+
 
 The above is just test.js in this repo. Clone the repo and run <code>node test.js</code> to run.
 
 ## Notes
 
-It also supports sorting, see if you can figure it out from the source code, it's not rocket science and does not support custom sorting functions yet but that may happen if I need it to, or if someone else does it.
+<code>query.select</code> allows you to select / filter the object data, and even allows you to rename the property names
+
+<code>query.where</code> allows you to conditionally filter the data based on condition rules you may or may not know and love
+
+It also supports sorting, ala:
+
+    q.where({order: {varname: 'asc', varname2: 'des'}});
+    
+which can be combined with the conditions object in the <code>query.where</code> function. This supports numerically based sorting only for now.
 
 I didn't make this to be extremely quick, just worked on it enough to make it work for everything I need it for. If you like it, then use it. If you don't then don't.
 

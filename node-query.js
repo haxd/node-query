@@ -19,7 +19,13 @@ Query.prototype = {
 				var current = _data[cursor];
 
 				for (var i = 0; i < _props.length; i++) {
-					if (cursor == props[i]) _tmp[cursor] = current;
+		      if (!(_props[i] instanceof Array)
+  	        && _props[i] !== null
+    	      && (typeof(_props[i]) == 'object')) {
+    	      for (var name in _props[i]) {
+    	      	if (cursor == name) _tmp[_props[i][name]] = current;
+    	      }
+    	    } else if (cursor == props[i]) _tmp[cursor] = current;
 				}
 			}
 
