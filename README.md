@@ -34,10 +34,16 @@ I needed a way to filter json data being returned, and wanted a nice way of doin
 
     console.log(q.data());
 
+## Notes
+
+It also supports sorting, see if you can figure it out from the source code, it's not rocket science and does not support custom sorting functions yet but that may happen if I need it to, or if someone else does it.
+
+I didn't make this to be extremely quick, just worked on it enough to make it work for everything I need it for. If you like it, then use it. If you don't then don't.
+
 ## Installation
 
 Just fork this repo and require as shown above, as much as I love npm personally, there is no way on earth I am going to jump through the copious amounts of hoops in order to get this published as an npm module. Sorry. If you want to do that, then be my guest.
 
 Hugs and Kisses,
 
-Haxd.
+Haxd
