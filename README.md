@@ -20,7 +20,7 @@ I needed a way to filter json data being returned, and wanted a nice way of doin
         'var1': /dat(a|e)/ig, // supports regexp or standard comparison
         and: [
           {'grep': 'upgrep'}, // this could be in seperate objects or in one big one
-          {'var2': {'>': 1} // supports all the usual operators, < > >= <= !=
+          {'var2': {'>': 1}} // supports all the usual operators, < > >= <= !=
         ],
         or: [
           {'blam': 'rap'}, // these need to be in seperate objects in the array
@@ -33,6 +33,8 @@ I needed a way to filter json data being returned, and wanted a nice way of doin
     // overwrite the query's current object.
 
     console.log(q.data());
+
+The above is just test.js in this repo. Clone the repo and run <code>node test.js</code> to run.
 
 ## Notes
 
